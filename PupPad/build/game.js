@@ -10,7 +10,7 @@ var PupPad;
         var GameEngine = (function (_super) {
             __extends(GameEngine, _super);
             function GameEngine() {
-                _super.call(this, 1024, 800, Phaser.AUTO, 'content', null);
+                _super.call(this, 1024, 600, Phaser.AUTO, 'content', null);
                 this.state.add('Boot', Client.Boot, false);
                 this.state.add('Preloader', Client.Preloader, false);
                 this.state.add('PadMain', Client.PadMain, false);
@@ -81,12 +81,14 @@ var PupPad;
                 this.stage.disableVisibilityChange = true;
                 if (this.game.device.desktop) {
                     this.scale.pageAlignHorizontally = true;
+                    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 }
                 else {
+                    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                     this.scale.minWidth = 480;
                     this.scale.minHeight = 260;
                     this.scale.maxWidth = 1024;
-                    this.scale.maxHeight = 768;
+                    this.scale.maxHeight = 600;
                     this.scale.forceLandscape = true;
                     this.scale.pageAlignHorizontally = true;
                     this.scale.refresh();
@@ -122,11 +124,12 @@ var PupPad;
                 this.currentZuma = 2;
             }
             PadMain.prototype.create = function () {
+                this.stage.setBackgroundColor(0x5555FF);
                 this.chase = this.add.sprite(this.world.centerX, 75, 'chase');
                 this.chase.anchor.setTo(0.5);
                 this.chase.inputEnabled = true;
                 this.chase.events.onInputDown.add(this.chaseVoice, this);
-                this.skye = this.add.sprite(this.world.centerX, 600, 'skye');
+                this.skye = this.add.sprite(this.world.centerX, 550, 'skye');
                 this.skye.anchor.setTo(0.5);
                 this.skye.inputEnabled = true;
                 this.skye.events.onInputDown.add(this.skyeVoice, this);
@@ -226,6 +229,7 @@ var PupPad;
             Preloader.prototype.boot = function () {
             };
             Preloader.prototype.preload = function () {
+                this.game.load.onLoadComplete.add(this.vanish, this);
                 this.loaderText = this.game.add.text(this.world.centerX, 200, "Loading...", { font: "18px Arial", fill: "#A9A91111", align: "center" });
                 this.loaderText.anchor.setTo(0.5);
                 this.game.load.image('chase', this.assetLocation + 'assets/sprites/111.png');
@@ -249,7 +253,6 @@ var PupPad;
                 this.game.load.audio('skyeAudio1', this.assetLocation + 'assets/sounds/skyeAudio1.ogg');
                 this.game.load.audio('zumaAudio1', this.assetLocation + 'assets/sounds/zumaAudio1.ogg');
                 this.game.load.audio('zumaAudio2', this.assetLocation + 'assets/sounds/zumaAudio2.ogg');
-                this.game.load.onLoadComplete.add(this.vanish, this);
             };
             Preloader.prototype.create = function () {
             };

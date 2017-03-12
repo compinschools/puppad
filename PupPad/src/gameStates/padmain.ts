@@ -32,6 +32,7 @@
         currentSound: Phaser.Sound;
 
         create() {
+            this.stage.setBackgroundColor(0x5555FF);
             //this.background = this.add.sprite(0, 0, 'background');
             //this.background.alpha = 0;
 
@@ -47,7 +48,7 @@
             this.chase.events.onInputDown.add(this.chaseVoice, this);
                         //this.game.debug.text("Click the logo to start the game", 0, this.world.height, "red");
 
-            this.skye = this.add.sprite(this.world.centerX, 600, 'skye');
+            this.skye = this.add.sprite(this.world.centerX, 550, 'skye');
             this.skye.anchor.setTo(0.5);
             this.skye.inputEnabled = true;
             this.skye.events.onInputDown.add(this.skyeVoice, this);

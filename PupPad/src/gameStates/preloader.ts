@@ -7,7 +7,7 @@
            
         }
         preload() {
-            
+            this.game.load.onLoadComplete.add(this.vanish, this);   
             this.loaderText = this.game.add.text(this.world.centerX, 200, "Loading...",
                 { font: "18px Arial", fill: "#A9A91111", align: "center" });
             this.loaderText.anchor.setTo(0.5);
@@ -44,7 +44,7 @@
 
             this.game.load.audio('zumaAudio1', this.assetLocation + 'assets/sounds/zumaAudio1.ogg');
             this.game.load.audio('zumaAudio2', this.assetLocation + 'assets/sounds/zumaAudio2.ogg');
-            this.game.load.onLoadComplete.add(this.vanish, this);
+           
             //this.load.atlasJSONHash('level01-sprites', '.assets/sprites/level01-sprites.png', '.assets/sprites/level01-sprites.json');
         }
 
